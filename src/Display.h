@@ -1,16 +1,8 @@
-#ifndef PANELS_H
-#define PANELS_H
+#ifndef DISPLAY_H
+#define DISPLAY_H
 #include <wx/wx.h>
 
-class BottomPanel : public wxPanel
-{
-public:
-    BottomPanel(wxPanel *parent);
-    wxPanel *m_parent;
-
-};
-
-class TopPanel : public wxPanel
+class Display : public wxPanel
 {
 public:
     double value1;
@@ -20,7 +12,7 @@ public:
     wxString m_number2;
     wxString m_operator;
     wxString m_previousPrint;
-    TopPanel(wxPanel *parent);
+    Display(wxPanel *parent);
 
     void HandleOperator(wxString operation);
     void HandleNumbers(wxString number);

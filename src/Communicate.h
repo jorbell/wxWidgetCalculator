@@ -1,8 +1,9 @@
 #ifndef COMMUNICATE_H
 #define COMMUNICATE_H
 #include <wx/wxprec.h>
-#include "Panels.h"
+#include "Display.h"
 #include "Button.h"
+#include "ButtonPad.h"
 
 
 class Communicate : public wxFrame
@@ -10,8 +11,8 @@ class Communicate : public wxFrame
 public:
     Communicate(const wxString& title);
 
-    TopPanel *m_tp;
-    BottomPanel *m_bp;
+    ButtonPad *m_buttonpad;
+    Display *m_display;
     wxPanel *m_parent;
 
 };

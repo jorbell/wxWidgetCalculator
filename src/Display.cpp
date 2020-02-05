@@ -1,18 +1,14 @@
 #include <wx/stattext.h>
+#include "Display.h"
 #include "Communicate.h"
 
-BottomPanel::BottomPanel(wxPanel * parent)
-       : wxPanel(parent, -1, wxPoint(-1, -1), wxSize(-1, -1), wxBORDER_SUNKEN)
-{
-  m_parent = parent;
-}
-TopPanel::TopPanel(wxPanel * parent)
+Display::Display(wxPanel * parent)
        : wxPanel(parent, wxID_ANY, wxDefaultPosition, 
          wxSize(30, 150), wxBORDER_SUNKEN)
 {
     m_text = new wxStaticText(this, -1, wxT("0"), wxPoint(0, 0));
 }
-void TopPanel::HandleNumbers(wxString number){
+void Display::HandleNumbers(wxString number){
     if(!m_operator){
         m_number1 = m_number1 + number;
         m_text->SetLabel(m_number1 + wxT("\n") + m_previousPrint);
@@ -21,7 +17,7 @@ void TopPanel::HandleNumbers(wxString number){
         m_text->SetLabel(m_number1 +wxT(" ")+ m_operator +wxT(" ")+ m_number2 + wxT("\n") + m_previousPrint);
     } 
 }
-void TopPanel::HandleOperator(wxString operation){
+void Display::HandleOperator(wxString operation){
     if(operation == wxString("=")){
             value1 = wxAtof(m_number1);
             value2 = wxAtof(m_number2);

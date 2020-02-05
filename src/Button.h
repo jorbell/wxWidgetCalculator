@@ -1,19 +1,16 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-#include "Panels.h"
+#include "Display.h"
+#include "ButtonPad.h"
 #include <wx/wx.h>
-class Button : wxButton
+class Button : public wxButton
 {
     public:
-        int id;
-        int x;
-        int y;
-        BottomPanel *m_bp;
-        TopPanel *m_tp;
+        int m_id;
+        ButtonPad *m_buttonpad;
         wxString m_label;
-        wxString type;
-        wxButton *m_button;
-        Button(wxString type,int id,int x, int y, wxString label,BottomPanel *m_bp, TopPanel *m_tp);
+        wxString m_type;
+        Button(wxString type,int id,wxString label,ButtonPad *buttonpad);
         
     private:
         void OnClick(wxCommandEvent & event);

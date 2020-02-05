@@ -3,30 +3,49 @@
 Communicate::Communicate(const wxString& title)
        : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(400, 600))
 {
-  m_parent = new wxPanel(this, wxID_ANY);
+    m_parent = new wxPanel(this, wxID_ANY);
+    wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+    m_display = new Display(m_parent);
+    m_buttonpad = new ButtonPad(m_parent);
 
-  wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
-
-  m_bp = new BottomPanel(m_parent);
-  m_tp = new TopPanel(m_parent);
-
-    wxVector<Button*> btns;
-    int row;
-    for (int i = 9; i >= 0; i--) {
-       if (i%3 == 0 && i != 9) {
-           row ++;
-       }
-       btns.push_back(new Button(wxString("number"),i, (i%3*30)+(i%3*10)+10, row*30+10, wxString::Format(wxT("%d"),i), m_bp,m_tp));
+    int id;
+    int numb = 1;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (j == 3) {
+                switch (i) {
+                    case 0:
+                        m_buttonpad->grid->Add(new Button(wxString("operator"),id, wxString("+"), m_buttonpad),0,wxEXPAND);
+                        break;
+                    case 1:
+                        m_buttonpad->grid->Add(new Button(wxString("operator"),id, wxString("*"), m_buttonpad),0,wxEXPAND);
+                        break;
+                    case 2:
+                        m_buttonpad->grid->Add(new Button(wxString("operator"),id, wxString("-"), m_buttonpad),0,wxEXPAND);
+                        break;
+                    case 3:
+                        m_buttonpad->grid->Add(new Button(wxString("operator"),id, wxString("/"), m_buttonpad),0,wxEXPAND);
+                        break;
+                    default:
+                        break;
+                }
+           }else{
+               if (numb < 10){
+                m_buttonpad->grid->Add(new Button(wxString("number"),id, wxString::Format(wxT("%d"),numb),m_buttonpad),0,wxEXPAND);
+               }else if (numb == 10){
+                    m_buttonpad->grid->Add(new Button(wxString("number"),id, wxString::Format(wxT("%d"),0),m_buttonpad),0,wxEXPAND);
+               }else if (numb == 11){
+                    m_buttonpad->grid->Add(new Button(wxString("number"),id, wxString("."),m_buttonpad),0,wxEXPAND);
+               }else if (numb == 12){
+                    m_buttonpad->grid->Add(new Button(wxString("operator"),id, wxString("="),m_buttonpad),0,wxEXPAND);
+               }
+                numb++;
+           }
+            id++;
+        }
     }
-       btns.push_back(new Button(wxString("number"),10, 50, 100, wxString("."), m_bp,m_tp));
-       btns.push_back(new Button(wxString("operator"),10, 130, 10, wxString("+"), m_bp,m_tp));
-       btns.push_back(new Button(wxString("operator"),10, 130, 40, wxString("-"), m_bp,m_tp));
-       btns.push_back(new Button(wxString("operator"),10, 130, 70, wxString("*"), m_bp,m_tp));
-       btns.push_back(new Button(wxString("operator"),10, 130, 100, wxString("/"), m_bp,m_tp));
-       btns.push_back(new Button(wxString("operator"),10, 130, 130, wxString("="), m_bp,m_tp));
-
-  vbox->Add(m_tp, 1, wxEXPAND | wxALL, 5);
-  vbox->Add(m_bp, 1, wxEXPAND | wxALL, 5);
+  vbox->Add(m_display, 1, wxEXPAND | wxALL, 5);
+  vbox->Add(m_buttonpad, 4, wxEXPAND | wxALL, 5);
 
   m_parent->SetSizer(vbox);
 
